@@ -9,7 +9,7 @@
     <parameter name="browser" value="chrome"></parameter>
     <test name="UI tests">
         <classes>
-            <class name="New">
+            <class name="createBusinessAccountPageTests.PositiveRegistrationTest">
                 <methods>
                     <include name="newTest"/>
                 </methods>

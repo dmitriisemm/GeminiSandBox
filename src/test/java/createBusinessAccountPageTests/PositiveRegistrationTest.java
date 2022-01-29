@@ -1,3 +1,5 @@
+package createBusinessAccountPageTests;
+
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -6,7 +8,7 @@ import pageObjectsSandBox.CreateBusinessAccountPage;
 import pageObjectsSandBox.SignInPage;
 import pageObjectsSandBox.SuccessfulRegistrationPage;
 
-public class New extends BaseTest {
+public class PositiveRegistrationTest extends BaseTest {
 
     @Test
     public void newTest() throws InterruptedException {
@@ -15,7 +17,7 @@ public class New extends BaseTest {
         SignInPage signInPage = new SignInPage(driver,log);
         signInPage.openSignInPage(url);
 
-        // Open Create New Account Page
+        // Open Create CreateBusinessAccountPageTests.New Account Page
         CreateAccountPage createAccountPage = signInPage.clickOnCreateNewAccount();
 
         // Open Create a business account page
@@ -24,7 +26,7 @@ public class New extends BaseTest {
         SuccessfulRegistrationPage successPage = createBusinessAccountPage.registerNewInstitutionalClient();
 
         /** Assert results */
-        // New Page Url Expected
+        // CreateBusinessAccountPageTests.New Page Url Expected
         Assert.assertEquals(successPage.getCurrentUrl(), successPage.getPageUrl());
         // Successful Registration message expected
         String expectedMessage = successPage.expectedSuccessMessage();
@@ -32,6 +34,5 @@ public class New extends BaseTest {
         Assert.assertTrue(actualMessage.contains(expectedMessage), "actualSuccessMessage does not contain expectedSuccessMessage" +
                 "\nexpectedSuccessMessage: " + expectedMessage + "\nactualMessage: "+actualMessage);
         }
-
     }
 
