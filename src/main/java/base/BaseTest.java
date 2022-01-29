@@ -17,7 +17,6 @@ public class BaseTest {
     protected Logger log;
     protected String url;
     protected String browser;
-
     protected String testSuiteName;
     protected String testName;
     protected String testMethodName;
@@ -27,6 +26,10 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     public void setUp(String url, @Optional("chrome") String browser, ITestContext ctx, Method method) {
         this.url = url;
+        this.testSuiteName = ctx.getSuite().getName();
+        this.testName = testName;
+        this.testMethodName = method.getName();
+
         String testName = ctx.getCurrentXmlTest().getName();
         log = LogManager.getLogger(testName);
 
@@ -34,12 +37,8 @@ public class BaseTest {
         BrowserDriverFactory factory = new BrowserDriverFactory(browser, log);
         driver = factory.createDriver();
 
-       driver.manage().window().maximize();
-
-        this.testSuiteName = ctx.getSuite().getName();
-        this.testName = testName;
-        this.testMethodName = method.getName();
-
+        // Maximize browser window
+        driver.manage().window().maximize();
     }
 
     @AfterMethod(alwaysRun = true)
