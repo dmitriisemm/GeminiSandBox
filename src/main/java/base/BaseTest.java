@@ -9,20 +9,23 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import java.lang.reflect.Method;
+
 public class BaseTest {
 
     protected WebDriver driver;
     protected Logger log;
-    protected String username;
-    protected String password;
     protected String url;
     protected String browser;
 
-    @Parameters({ "url","username","password","browser" })
+    protected String testSuiteName;
+    protected String testName;
+    protected String testMethodName;
+
+
+    @Parameters({ "url","browser" })
     @BeforeMethod(alwaysRun = true)
-    public void setUp(String url, String username, String password, @Optional("chrome") String browser, ITestContext ctx) {
-        this.username = username;
-        this.password = password;
+    public void setUp(String url, @Optional("chrome") String browser, ITestContext ctx, Method method) {
         this.url = url;
         String testName = ctx.getCurrentXmlTest().getName();
         log = LogManager.getLogger(testName);
@@ -31,7 +34,12 @@ public class BaseTest {
         BrowserDriverFactory factory = new BrowserDriverFactory(browser, log);
         driver = factory.createDriver();
 
-        driver.manage().window().maximize();
+       driver.manage().window().maximize();
+
+        this.testSuiteName = ctx.getSuite().getName();
+        this.testName = testName;
+        this.testMethodName = method.getName();
+
     }
 
     @AfterMethod(alwaysRun = true)

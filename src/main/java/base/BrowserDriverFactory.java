@@ -1,5 +1,6 @@
 package base;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,23 +21,21 @@ public class BrowserDriverFactory {
         log.info("Create driver: " + browser);
 
         switch (browser) {
-            case "chrome":
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
-                driver.set(new ChromeDriver());
-                break;
-
             case "firefox":
-                System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver");
-                driver.set(new FirefoxDriver());
-                break;
-
+                return getFirefoxDriver();
             default:
-                System.out.println("Do not know how to start: " + browser + ", starting chrome.");
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
-                driver.set(new ChromeDriver());
-                break;
+                return getChromeDriver();
         }
-        return driver.get();
+    }
+
+    private static WebDriver getChromeDriver() {
+        WebDriverManager.chromedriver().setup();
+        return new ChromeDriver();
+    }
+
+    private static WebDriver getFirefoxDriver() {
+        WebDriverManager.firefoxdriver().setup();
+        return new FirefoxDriver();
     }
 }
 
