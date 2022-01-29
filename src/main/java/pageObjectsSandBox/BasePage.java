@@ -3,11 +3,12 @@ package pageObjectsSandBox;
 import base.BaseTest;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
+import java.util.Random;
 
 
 public class BasePage extends BaseTest {
@@ -41,6 +42,11 @@ public class BasePage extends BaseTest {
         find(locator).sendKeys(text);
     }
 
+    /** Get URL of current page from browser */
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
+
     /**
      * Wait for given number of seconds for element with given locator to be visible
      * on the page
@@ -65,17 +71,22 @@ public class BasePage extends BaseTest {
         wait.until(condition);
     }
 
-    // Right click on selected button
-    protected void rightClick(By locator) {
-        Actions actions = new Actions(driver);
-        WebElement element = find(locator);
-        actions.contextClick(element).perform();
-    }
-
-    // Scroll down by the visibility of the element
+    /** Scroll down by the visibility of the element */
     protected void scrollToTheElement(By locator) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement element = find(locator);
         js.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
+    /** Select random value from dropdown menu */
+    protected void selectRandomDropDownValue(By locator) {
+        List<WebElement> list = driver.findElements(locator);
+        list.get(getRandomValue(1, list.size() - 2)).click();
+    }
+
+    /** Generate random value for dropdown menu */
+    protected int getRandomValue(int lowerBound, int upperBound) {
+        Random r = new Random();
+        return (r.nextInt(upperBound) + lowerBound);
     }
 }
