@@ -4,6 +4,10 @@ import com.github.javafaker.Faker;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CreateBusinessAccountPage extends BasePage {
     private By legalBusinessNameFieldLocator = By.xpath("//input[@name='company.legalName']");
@@ -73,6 +77,8 @@ public class CreateBusinessAccountPage extends BasePage {
 
     /** Return text from error message */
     public String getErrorMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageLocator));
         return find(errorMessageLocator).getText();
     }
 }
