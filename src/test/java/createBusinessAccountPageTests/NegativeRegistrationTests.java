@@ -24,7 +24,6 @@ public class NegativeRegistrationTests extends TestUtilities {
                 {2, legalBusinessName, "", legalLastName, emailAddress, "First name is required."},
                 {3, legalBusinessName, legalFirstName, "", emailAddress, "Last name is required."},
                 {4, legalBusinessName, legalFirstName, legalLastName, "", "Please enter a valid email address."},
-                {5, legalBusinessName, legalFirstName, legalLastName, "", "Please enter a valid email address."},
         };
     }
 
