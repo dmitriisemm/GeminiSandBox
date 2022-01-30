@@ -17,7 +17,7 @@ public class PositiveRegistrationTest extends TestUtilities {
         SignInPage signInPage = new SignInPage(driver, log);
         signInPage.openSignInPage(url);
 
-        // Open Create CreateBusinessAccountPageTests.New Account Page
+        // Open Create New Account Page
         CreateAccountPage createAccountPage = signInPage.clickOnCreateNewAccount();
 
         // Open Create a business account page and Fill out the form
