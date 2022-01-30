@@ -18,7 +18,6 @@ public class BaseTest {
     protected String url;
     protected String browser;
     protected String testSuiteName;
-    protected String testName;
     protected String testMethodName;
 
 
@@ -27,7 +26,6 @@ public class BaseTest {
     public void setUp(String url, @Optional("chrome") String browser, ITestContext ctx, Method method) {
         this.url = url;
         this.testSuiteName = ctx.getSuite().getName();
-        this.testName = testName;
         this.testMethodName = method.getName();
 
         String testName = ctx.getCurrentXmlTest().getName();

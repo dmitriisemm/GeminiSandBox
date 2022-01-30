@@ -1,20 +1,20 @@
 package createBusinessAccountPageTests;
 
-import base.BaseTest;
+import base.TestUtilities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjectsSandBox.CreateAccountPage;
-import pageObjectsSandBox.CreateBusinessAccountPage;
-import pageObjectsSandBox.SignInPage;
-import pageObjectsSandBox.SuccessfulRegistrationPage;
+import pageObjects.CreateAccountPage;
+import pageObjects.CreateBusinessAccountPage;
+import pageObjects.SignInPage;
+import pageObjects.SuccessfulRegistrationPage;
 
-public class PositiveRegistrationTest extends BaseTest {
+public class PositiveRegistrationTest extends TestUtilities {
 
     @Test
-    public void newTest() {
+    public void successfulRegistration() {
 
         // Open main page
-        SignInPage signInPage = new SignInPage(driver,log);
+        SignInPage signInPage = new SignInPage(driver, log);
         signInPage.openSignInPage(url);
 
         // Open Create CreateBusinessAccountPageTests.New Account Page
@@ -25,11 +25,14 @@ public class PositiveRegistrationTest extends BaseTest {
         CreateBusinessAccountPage createBusinessAccountPage = createAccountPage.clickOnCreateBusinessAccount();
         SuccessfulRegistrationPage successPage = createBusinessAccountPage.registerNewInstitutionalClient();
 
-        /** Assert results */
+        // Take screenshot of successful registration page
+        takeScreenshot("Successful registration");
+
+        log.debug("Asserting results");
         // CreateBusinessAccountPageTests.New Page Url Expected
         Assert.assertEquals(successPage.getCurrentUrl(), successPage.getPageUrl());
         // Successful Registration message expected
         Assert.assertEquals(successPage.getSuccessMessage(), successPage.expectedSuccessMessage());
-        }
     }
+}
 

@@ -1,4 +1,4 @@
-package pageObjectsSandBox;
+package pageObjects;
 
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -20,6 +20,8 @@ public class SuccessfulRegistrationPage extends BasePage {
 
     /** Return text from success message */
     public String getSuccessMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(successMessageFieldLocator));
         return find(successMessageFieldLocator).getText();
     }
 

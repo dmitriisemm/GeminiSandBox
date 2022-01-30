@@ -1,47 +1,55 @@
 package createBusinessAccountPageTests;
 
-import base.BaseTest;
+import base.TestUtilities;
 import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pageObjectsSandBox.BasePage;
-import pageObjectsSandBox.CreateAccountPage;
-import pageObjectsSandBox.CreateBusinessAccountPage;
-import pageObjectsSandBox.SignInPage;
+import pageObjects.CreateAccountPage;
+import pageObjects.CreateBusinessAccountPage;
+import pageObjects.SignInPage;
 
-import java.util.List;
-import java.util.Random;
 
-public class NegativeRegistrationTests extends BaseTest {
+public class NegativeRegistrationTests extends TestUtilities {
 
     @DataProvider(name = "data")
-    public Object[][] getData(){
+    public Object[][] getData() {
         String legalBusinessName = new Faker().name().firstName();
         String legalFirstName = new Faker().name().firstName();
         String legalLastName = new Faker().name().lastName();
-        String emailAddress = new Faker().name().firstName()+"@gmail.com";
+        String emailAddress = new Faker().name().firstName() + "@gmail.com";
 
         return new Object[][]{
-                {"",legalFirstName,legalLastName,emailAddress/*,"Legal Business Name is required."*/},
-                {legalBusinessName,"",legalLastName, emailAddress/*,"First name is required."*/},
-                {legalBusinessName,legalFirstName,"",emailAddress/*,"Last name is required."*/},
-                {legalBusinessName, legalFirstName, legalLastName,""/*,"Please enter a valid email address."*/},
+                {1, "", legalFirstName, legalLastName, emailAddress, "Legal Business Name is required."},
+                {2, legalBusinessName, "", legalLastName, emailAddress, "First name is required."},
+                {3, legalBusinessName, legalFirstName, "", emailAddress, "Last name is required."},
+                {4, legalBusinessName, legalFirstName, legalLastName, "", "Please enter a valid email address."},
+                {5, legalBusinessName, legalFirstName, legalLastName, "", "Please enter a valid email address."},
         };
     }
 
     @Test(dataProvider = "data")
-    public void negativeRegister(String businessName, String firstName, String lastName, String emailAddress) throws InterruptedException {
+    public void negativeRegister(int no, String businessName, String firstName, String lastName, String emailAddress, String expectedErrorMessage) {
+
+        log.debug("Starting failed registration test # " + no);
+
         // Open main page
-        SignInPage signInPage = new SignInPage(driver,log);
+        SignInPage signInPage = new SignInPage(driver, log);
         signInPage.openSignInPage(url);
 
         // Open Create CreateBusinessAccountPageTests.New Account Page
         CreateAccountPage createAccountPage = signInPage.clickOnCreateNewAccount();
+
         // Open Create a business account page
         // Fill out the form
         CreateBusinessAccountPage createBusinessAccountPage = createAccountPage.clickOnCreateBusinessAccount();
-        createBusinessAccountPage.registerNewInstitutionalClient2(businessName, firstName, lastName,emailAddress);
+        createBusinessAccountPage.failedRegistration(businessName, firstName, lastName, emailAddress);
+
+        // Take screenshot of failed registration page
+        takeScreenshot("Failed registration #" + no);
+
+        // Assert results
+        log.debug("Asserting results");
+        Assert.assertEquals(createBusinessAccountPage.getErrorMessage(), expectedErrorMessage);
     }
 }

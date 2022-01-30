@@ -1,0 +1,17 @@
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="MasterRegression" verbose="1" >
+    <listeners>
+        <listener class-name="base.TestListener"></listener>
+    </listeners>
+    <parameter name="url" value="https://exchange.sandbox.gemini.com/"></parameter>
+    <parameter name="browser" value="chrome"></parameter>
+    <test name="UI tests">
+        <classes>
+            <class name="createBusinessAccountPageTests.NegativeRegistrationTests">
+            </class>
+            <class name="createBusinessAccountPageTests.PositiveRegistrationTest"></class>
+        </classes>
+    </test>
+</suite>

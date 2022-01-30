@@ -6,13 +6,12 @@
         <listener class-name="base.TestListener"></listener>
     </listeners>
     <parameter name="url" value="https://exchange.sandbox.gemini.com/"></parameter>
-    <parameter name="browser" value="chrome"></parameter>
+    <parameter name="browser" value="firefox"></parameter>
     <test name="UI tests">
         <classes>
+            <class name="createBusinessAccountPageTests.PositiveRegistrationTest">
+            </class>
             <class name="createBusinessAccountPageTests.NegativeRegistrationTests">
-                <methods>
-                    <include name="negativeRegister"/>
-                </methods>
             </class>
         </classes>
     </test>

@@ -18,7 +18,6 @@ public class TestUtilities extends BaseTest {
                 + File.separator + "screenshots"
                 + File.separator + getTodaysDate()
                 + File.separator + testSuiteName
-                + File.separator + testName
                 + File.separator + testMethodName
                 + File.separator + getSystemTime()
                 + " " + fileName + ".png";

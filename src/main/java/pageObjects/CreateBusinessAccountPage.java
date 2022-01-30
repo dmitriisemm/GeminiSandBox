@@ -1,12 +1,9 @@
-package pageObjectsSandBox;
+package pageObjects;
 
 import com.github.javafaker.Faker;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import javax.lang.model.element.Element;
 
 public class CreateBusinessAccountPage extends BasePage {
     private By legalBusinessNameFieldLocator = By.xpath("//input[@name='company.legalName']");
@@ -19,11 +16,13 @@ public class CreateBusinessAccountPage extends BasePage {
     private By stateDropDownLocator = By.id("stateDropdown");
     private By checkBoxRulesLocator = By.xpath("//input[@name='tos']/following-sibling::span");
     private By submitButtonLocator = By.xpath("//button[@type='submit']");
+    private By errorMessageLocator = By.xpath("//div[@class='AlertBody']//li");
 
     public CreateBusinessAccountPage(WebDriver driver, Logger log){
         super(driver, log);
     }
 
+    /** Successful registration */
     public SuccessfulRegistrationPage registerNewInstitutionalClient() {
         log.debug("Typing Legal Business Name");
         String legalBusinessName = new Faker().name().firstName();
@@ -50,12 +49,13 @@ public class CreateBusinessAccountPage extends BasePage {
         return new SuccessfulRegistrationPage(driver,log);
     }
 
-    public void registerNewInstitutionalClient2(String businessName, String firstName, String lastName, String emailAddress) throws InterruptedException {
+    /** Failed registration */
+    public void failedRegistration (String businessName, String firstName, String lastName, String emailAddress) {
         log.debug("Typing Legal Business Name");
         type(businessName, legalBusinessNameFieldLocator);
         log.debug("Selecting random Company Type");
         click(companyTypeDropdownLocator);
-        /*selectRandomDropDownValue(companyTypeDropdownMenuLocator);*/
+        selectRandomDropDownValue(companyTypeDropdownMenuLocator);
         log.debug("Selecting random State");
         click(stateDropDownLocator);
         selectRandomDropDownValue(stateDropDownMenuLocator);
@@ -68,7 +68,11 @@ public class CreateBusinessAccountPage extends BasePage {
         log.debug("Clicking on Rules Checkbox");
         click(checkBoxRulesLocator);
         log.debug("Clicking on submit button");
-        Thread.sleep(5000);
         click(submitButtonLocator);
+    }
+
+    /** Return text from error message */
+    public String getErrorMessage() {
+        return find(errorMessageLocator).getText();
     }
 }

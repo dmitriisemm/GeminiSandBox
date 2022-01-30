@@ -1,4 +1,4 @@
-package pageObjectsSandBox;
+package pageObjects;
 
 import base.BaseTest;
 import org.apache.logging.log4j.Logger;
@@ -69,13 +69,6 @@ public class BasePage extends BaseTest {
         timeOutInSeconds = timeOutInSeconds != null ? timeOutInSeconds : 10;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds));
         wait.until(condition);
-    }
-
-    /** Scroll down by the visibility of the element */
-    protected void scrollToTheElement(By locator) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        WebElement element = find(locator);
-        js.executeScript("arguments[0].scrollIntoView();", element);
     }
 
     /** Select random value from dropdown menu */
