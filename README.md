@@ -8,9 +8,10 @@ git clone https://github.com/dmitriisemm/GeminiSandBox.git
 ```
 
 ## How to run
-to run tests use Maven. (https://maven.apache.org/) <br/>
+1. Install JDK or JVM from https://www.oracle.com/java/technologies/downloads/ <br/>
+Set JAVA_HOME path.
+2. To run tests use Maven. (https://maven.apache.org/) <br/>
 Maven should be installed on target computer, and maven executable files should be added to MAVEN_HOME path <br/>
-Install JDK or JVM from https://www.oracle.com/java/technologies/downloads/ <br/>
 
 ### To run in Chrome Browser
 Chrome should be installed
