@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class CreateBusinessAccountPage extends BasePage {
@@ -54,23 +53,44 @@ public class CreateBusinessAccountPage extends BasePage {
     }
 
     /** Failed registration */
-    public void failedRegistration (String businessName, String firstName, String lastName, String emailAddress) {
-        log.debug("Typing Legal Business Name");
-        type(businessName, legalBusinessNameFieldLocator);
-        log.debug("Selecting random Company Type");
-        click(companyTypeDropdownLocator);
-        selectRandomDropDownValue(companyTypeDropdownMenuLocator);
-        log.debug("Selecting random State");
-        click(stateDropDownLocator);
-        selectRandomDropDownValue(stateDropDownMenuLocator);
-        log.debug("Typing Legal First Name");
-        type(firstName, legalFirstNameFieldLocator);
-        log.debug("Typing Legal Last Name");
-        type(lastName, legalLastNameFieldLocator);
-        log.debug("Typing Email Address");
-        type(emailAddress, yourEmailAddressFieldLocator);
-        log.debug("Clicking on Rules Checkbox");
-        click(checkBoxRulesLocator);
+    public void failedRegistration (String businessName, String firstName, String lastName, String emailAddress, String company, String state, String agreement) {
+        if (businessName.equals("noBusinessName")) {log.debug("Skipping Business Name field");}
+        else {
+            log.debug("Typing Legal Business Name");
+            type(businessName, legalBusinessNameFieldLocator);
+        }
+        if (company.equals("noCompany")) {log.debug("Skipping Company Type field");}
+        else {
+            log.debug("Selecting random Company Type");
+            click(companyTypeDropdownLocator);
+            selectRandomDropDownValue(companyTypeDropdownMenuLocator);
+        }
+        if (state.equals("noState")) {log.debug("Skipping state field");}
+        else{
+            log.debug("Selecting random State");
+            click(stateDropDownLocator);
+            selectRandomDropDownValue(stateDropDownMenuLocator);
+        }
+        if (firstName.equals("noFirstName")) {log.debug("Skipping Legal First Name field");}
+        else {
+            log.debug("Typing Legal First Name");
+            type(firstName, legalFirstNameFieldLocator);
+        }
+        if (lastName.equals("noLastName")) {log.debug("Skipping Legal Last Name field");}
+        else {
+            log.debug("Typing Legal Last Name");
+            type(lastName, legalLastNameFieldLocator);
+        }
+        if (emailAddress.equals("noEmailAddress")) {log.debug("Skipping Email Adress field");}
+        else {
+            log.debug("Typing Email Address");
+            type(emailAddress, yourEmailAddressFieldLocator);
+        }
+        if (agreement.equals("noUserAgreement")){log.debug("Skipping User Agreement checkbox");}
+        else{
+            log.debug("Clicking on Rules Checkbox");
+            click(checkBoxRulesLocator);
+        }
         log.debug("Clicking on submit button");
         click(submitButtonLocator);
     }

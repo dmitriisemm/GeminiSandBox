@@ -10,7 +10,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
-
 public class BasePage extends BaseTest {
     protected WebDriver driver;
     protected Logger log;

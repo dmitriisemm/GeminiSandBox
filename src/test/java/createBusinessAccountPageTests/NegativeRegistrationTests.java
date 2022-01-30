@@ -1,34 +1,17 @@
 package createBusinessAccountPageTests;
 
 import base.TestUtilities;
-import com.github.javafaker.Faker;
+import dataProviders.NegativeRegistrationData;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageObjects.CreateAccountPage;
 import pageObjects.CreateBusinessAccountPage;
 import pageObjects.SignInPage;
 
-
 public class NegativeRegistrationTests extends TestUtilities {
 
-    @DataProvider(name = "data")
-    public Object[][] getData() {
-        String legalBusinessName = new Faker().name().firstName();
-        String legalFirstName = new Faker().name().firstName();
-        String legalLastName = new Faker().name().lastName();
-        String emailAddress = new Faker().name().firstName() + "@gmail.com";
-
-        return new Object[][]{
-                {1, "", legalFirstName, legalLastName, emailAddress, "Legal Business Name is required."},
-                {2, legalBusinessName, "", legalLastName, emailAddress, "First name is required."},
-                {3, legalBusinessName, legalFirstName, "", emailAddress, "Last name is required."},
-                {4, legalBusinessName, legalFirstName, legalLastName, "", "Please enter a valid email address."},
-        };
-    }
-
-    @Test(dataProvider = "data")
-    public void negativeRegistration(int no, String businessName, String firstName, String lastName, String emailAddress, String expectedErrorMessage) {
+    @Test(dataProvider = "data1", dataProviderClass= NegativeRegistrationData.class)
+    public void negativeRegistration(int no, String businessName, String firstName, String lastName, String emailAddress, String companyType, String state, String agreement, String expectedErrorMessage) {
 
         log.debug("Starting failed registration test # " + no);
 
@@ -41,7 +24,7 @@ public class NegativeRegistrationTests extends TestUtilities {
 
         // Open Create a business account page and Fill out the form
         CreateBusinessAccountPage createBusinessAccountPage = createAccountPage.clickOnCreateBusinessAccount();
-        createBusinessAccountPage.failedRegistration(businessName, firstName, lastName, emailAddress);
+        createBusinessAccountPage.failedRegistration(businessName, firstName, lastName, emailAddress, companyType, state, agreement);
 
         // Take screenshot of failed registration page
         log.debug("Taking screenshot of failed registration page");
