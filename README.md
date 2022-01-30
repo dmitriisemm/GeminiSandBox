@@ -22,3 +22,4 @@ Firefox should be installed
 ```shell
 mvn clean test -Dbrowser=firefox
 ```
+
