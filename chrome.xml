@@ -9,9 +9,10 @@
     <parameter name="browser" value="chrome"></parameter>
     <test name="UI tests">
         <classes>
+            <class name="createBusinessAccountPageTests.PositiveRegistrationTest">
+            </class>
             <class name="createBusinessAccountPageTests.NegativeRegistrationTests">
             </class>
-            <class name="createBusinessAccountPageTests.PositiveRegistrationTest"></class>
         </classes>
     </test>
 </suite>

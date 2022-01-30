@@ -20,19 +20,19 @@ public class PositiveRegistrationTest extends TestUtilities {
         // Open Create CreateBusinessAccountPageTests.New Account Page
         CreateAccountPage createAccountPage = signInPage.clickOnCreateNewAccount();
 
-        // Open Create a business account page
-        // Fill out the form
+        // Open Create a business account page and Fill out the form
         CreateBusinessAccountPage createBusinessAccountPage = createAccountPage.clickOnCreateBusinessAccount();
         SuccessfulRegistrationPage successPage = createBusinessAccountPage.registerNewInstitutionalClient();
-
-        // Take screenshot of successful registration page
-        takeScreenshot("Successful registration");
 
         log.debug("Asserting results");
         // CreateBusinessAccountPageTests.New Page Url Expected
         Assert.assertEquals(successPage.getCurrentUrl(), successPage.getPageUrl());
         // Successful Registration message expected
         Assert.assertEquals(successPage.getSuccessMessage(), successPage.expectedSuccessMessage());
+
+        // Take screenshot of successful registration page
+        log.debug("Taking screenshot of successful registration page");
+        takeScreenshot("Successful registration");
     }
 }
 

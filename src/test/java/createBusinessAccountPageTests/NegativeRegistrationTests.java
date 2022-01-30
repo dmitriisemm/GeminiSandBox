@@ -29,7 +29,7 @@ public class NegativeRegistrationTests extends TestUtilities {
     }
 
     @Test(dataProvider = "data")
-    public void negativeRegister(int no, String businessName, String firstName, String lastName, String emailAddress, String expectedErrorMessage) {
+    public void negativeRegistration(int no, String businessName, String firstName, String lastName, String emailAddress, String expectedErrorMessage) {
 
         log.debug("Starting failed registration test # " + no);
 
@@ -40,12 +40,12 @@ public class NegativeRegistrationTests extends TestUtilities {
         // Open Create CreateBusinessAccountPageTests.New Account Page
         CreateAccountPage createAccountPage = signInPage.clickOnCreateNewAccount();
 
-        // Open Create a business account page
-        // Fill out the form
+        // Open Create a business account page and Fill out the form
         CreateBusinessAccountPage createBusinessAccountPage = createAccountPage.clickOnCreateBusinessAccount();
         createBusinessAccountPage.failedRegistration(businessName, firstName, lastName, emailAddress);
 
         // Take screenshot of failed registration page
+        log.debug("Taking screenshot of failed registration page");
         takeScreenshot("Failed registration #" + no);
 
         // Assert results
