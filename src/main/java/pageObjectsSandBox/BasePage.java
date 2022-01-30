@@ -79,7 +79,7 @@ public class BasePage extends BaseTest {
     }
 
     /** Select random value from dropdown menu */
-    protected void selectRandomDropDownValue(By locator) {
+    public void selectRandomDropDownValue(By locator) {
         List<WebElement> list = driver.findElements(locator);
         list.get(getRandomValue(1, list.size() - 2)).click();
     }

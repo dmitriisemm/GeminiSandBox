@@ -4,6 +4,9 @@ import com.github.javafaker.Faker;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import javax.lang.model.element.Element;
 
 public class CreateBusinessAccountPage extends BasePage {
     private By legalBusinessNameFieldLocator = By.xpath("//input[@name='company.legalName']");
@@ -47,9 +50,25 @@ public class CreateBusinessAccountPage extends BasePage {
         return new SuccessfulRegistrationPage(driver,log);
     }
 
-
-
-
-
-
+    public void registerNewInstitutionalClient2(String businessName, String firstName, String lastName, String emailAddress) throws InterruptedException {
+        log.debug("Typing Legal Business Name");
+        type(businessName, legalBusinessNameFieldLocator);
+        log.debug("Selecting random Company Type");
+        click(companyTypeDropdownLocator);
+        /*selectRandomDropDownValue(companyTypeDropdownMenuLocator);*/
+        log.debug("Selecting random State");
+        click(stateDropDownLocator);
+        selectRandomDropDownValue(stateDropDownMenuLocator);
+        log.debug("Typing Legal First Name");
+        type(firstName, legalFirstNameFieldLocator);
+        log.debug("Typing Legal Last Name");
+        type(lastName, legalLastNameFieldLocator);
+        log.debug("Typing Email Address");
+        type(emailAddress, yourEmailAddressFieldLocator);
+        log.debug("Clicking on Rules Checkbox");
+        click(checkBoxRulesLocator);
+        log.debug("Clicking on submit button");
+        Thread.sleep(5000);
+        click(submitButtonLocator);
+    }
 }

@@ -28,16 +28,15 @@ public class SuccessfulRegistrationPage extends BasePage {
         return pageUrl;
     }
 
+    /** Get String variable from PageObject */
     public String expectedSuccessMessage() {
         return successMessage;
     }
 
+    /** Return new URL address */
     public String getCurrentUrl(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.urlMatches(pageUrl));
         return driver.getCurrentUrl();
     }
-
-
-
 }
