@@ -1,5 +1,6 @@
 # Simple Framework
 This is very simple testing framework to test Institutional Client Registration page on https://exchange.sandbox.gemini.com/register/institution
+After each test run the framework will create test-output folder where you can see screenshots of target pages
 
 ## Clone repo
 clone repository using
